@@ -2,53 +2,56 @@ package com.RaphaelAGN.chucknorrisapp
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.Button
-import android.widget.TextView
-import android.widget.Toast
-import com.RaphaelAGN.chucknorrisapp.endpoint.Endpoint
-import com.RaphaelAGN.chucknorrisapp.data.JokeModel
-import com.RaphaelAGN.chucknorrisapp.retrofitClient.RetrofitClient
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
+import android.util.Log
+import androidx.fragment.app.*
+import com.RaphaelAGN.chucknorrisapp.fragments.MainFragment
 
 class MainActivity : AppCompatActivity() {
 
-    var jokeButton: Button? = null
-    var jokeTextView: TextView? = null
+    val manager: FragmentManager = supportFragmentManager
+    val transaction: FragmentTransaction = manager.beginTransaction()
+    val TAG = "chuck_norris_app"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        Log.i(TAG, "onCreate")
         setContentView(R.layout.activity_main)
 
-        jokeTextView = findViewById(R.id.joke_text_view)
-
-        jokeTextView?.text = "Click the button below to get a joke"
-
-        jokeButton = findViewById(R.id.joke_button)
-        jokeButton?.text="New Joke"
-
-        jokeButton?.setOnClickListener(){
-            getRandomJoke();
+        if(savedInstanceState == null) {
+            val fragment = MainFragment()
+            transaction.replace(R.id.main_fragment, fragment)
+            transaction.commit()
         }
     }
 
-    fun getRandomJoke() {
-        val retrofitClient =
-            RetrofitClient.getRetrofitInstance("https://api.chucknorris.io/jokes/");
+    override fun onPause() {
+        super.onPause()
+        Log.i(TAG, "onPause")
+    }
 
-        val endpoint = retrofitClient.create(Endpoint::class.java)
-        val callback = endpoint.getJoke()
+    override fun onResume() {
+        super.onResume()
+        Log.i(TAG, "onResume")
+    }
 
-        callback.enqueue(object : Callback<JokeModel> {
-            override fun onFailure(call: Call<JokeModel>, t: Throwable) {
-                Toast.makeText(baseContext, "An error has occurred", Toast.LENGTH_LONG).show()
-            }
+    override fun onStart() {
+        super.onStart()
+        Log.i(TAG, "onStart")
+    }
 
-            override fun onResponse(call: Call<JokeModel>, response: Response<JokeModel>) {
-                jokeTextView?.text = response.body()?.value.toString()
-            }
-        })
+    override fun onStop() {
+        super.onStop()
+        Log.i(TAG, "onStop")
+    }
+
+    override fun onRestart() {
+        super.onRestart()
+        Log.i(TAG, "onRestart")
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        Log.i(TAG, "onDestroy")
     }
 
 }
