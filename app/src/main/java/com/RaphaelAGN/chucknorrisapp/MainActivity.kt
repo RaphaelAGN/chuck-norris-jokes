@@ -7,9 +7,7 @@ import androidx.fragment.app.*
 import com.RaphaelAGN.chucknorrisapp.fragments.MainFragment
 
 class MainActivity : AppCompatActivity() {
-
-    val manager: FragmentManager = supportFragmentManager
-    val transaction: FragmentTransaction = manager.beginTransaction()
+    val fragment = MainFragment()
     val TAG = "chuck_norris_app"
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -18,9 +16,9 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         if(savedInstanceState == null) {
-            val fragment = MainFragment()
-            transaction.replace(R.id.main_fragment, fragment)
-            transaction.commit()
+            supportFragmentManager.beginTransaction()
+                .replace(R.id.main_fragment, fragment)
+                .commit()
         }
     }
 
