@@ -21,7 +21,11 @@ class JokeViewModel : ViewModel() {
         MutableLiveData<String>()
     }
 
-    fun getRandomJoke(context: Context) {
+    val error: MutableLiveData<String> by lazy {
+        MutableLiveData<String>()
+    }
+
+    fun getRandomJoke() {
         val retrofitClient =
             RetrofitClient.getRetrofitInstance("https://api.chucknorris.io/jokes/")
 
@@ -30,7 +34,7 @@ class JokeViewModel : ViewModel() {
 
         callback.enqueue(object : Callback<JokeModel> {
             override fun onFailure(call: Call<JokeModel>, t: Throwable) {
-                Toast.makeText(context, "An error has occurred", Toast.LENGTH_LONG).show()
+                error.value = "An error has occurred"
             }
 
             override fun onResponse(call: Call<JokeModel>, response: Response<JokeModel>) {

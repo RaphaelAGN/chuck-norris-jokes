@@ -9,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
+import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import com.RaphaelAGN.chucknorrisapp.MainActivity
@@ -42,13 +43,15 @@ class MainFragment : Fragment(R.layout.fragment_main) {
         jokeButton?.text = buttonText
 
         jokeButton?.setOnClickListener(){
-            context?.let{
-                    context -> model.getRandomJoke(context)
-            }
+            model.getRandomJoke()
         }
 
         model.currentJoke.observe(viewLifecycleOwner, Observer{
             jokeTextView?.text = it
+        })
+
+        model.error.observe(viewLifecycleOwner, Observer{
+            Toast.makeText(context,  it, Toast.LENGTH_LONG).show()
         })
 
         return root
