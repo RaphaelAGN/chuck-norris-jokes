@@ -14,14 +14,14 @@ import androidx.lifecycle.Observer
 import com.RaphaelAGN.chucknorrisapp.R
 
 import com.RaphaelAGN.chucknorrisapp.viewModels.JokeViewModel
-import org.koin.android.ext.android.inject
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class MainFragment : Fragment(R.layout.fragment_main) {
     var jokeButton: Button? = null
     var jokeTextView: TextView? = null
     val TAG = "chuck_norris_app"
 
-    val model: JokeViewModel by inject()
+    val model: JokeViewModel by viewModel()
 
     val buttonText = "New Joke"
     val defaultTextOnTextView = "Click the button below to show a joke"
