@@ -10,19 +10,18 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
-import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
-import com.RaphaelAGN.chucknorrisapp.MainActivity
 import com.RaphaelAGN.chucknorrisapp.R
 
 import com.RaphaelAGN.chucknorrisapp.viewModels.JokeViewModel
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class MainFragment : Fragment(R.layout.fragment_main) {
     var jokeButton: Button? = null
     var jokeTextView: TextView? = null
     val TAG = "chuck_norris_app"
 
-    val model: JokeViewModel by viewModels()
+    val model: JokeViewModel by viewModel()
 
     val buttonText = "New Joke"
     val defaultTextOnTextView = "Click the button below to show a joke"
