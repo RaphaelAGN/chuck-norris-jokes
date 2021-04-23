@@ -1,4 +1,4 @@
-package com.RaphaelAGN.chucknorrisapp.data
+package com.RaphaelAGN.chucknorrisapp.models
 
 import com.google.gson.annotations.SerializedName
 
