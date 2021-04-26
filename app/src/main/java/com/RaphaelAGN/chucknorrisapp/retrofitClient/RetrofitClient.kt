@@ -15,5 +15,4 @@ class RetrofitClient {
                 .create(JokeService::class.java)
         }
     }
-
 }

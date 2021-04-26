@@ -18,10 +18,10 @@ class ChuckNorrisJokesApplication : Application() {
             androidContext(this@ChuckNorrisJokesApplication)
             modules(
                 listOf(
-                    jokeViewModelModule,
                     retrofitJokeService,
+                    dataSourceModule,
                     repositoryModule,
-                    dataSourceModule
+                    jokeViewModelModule
                 )
             )
         }

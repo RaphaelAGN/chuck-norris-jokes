@@ -4,5 +4,5 @@ import com.RaphaelAGN.chucknorrisapp.models.JokeModel
 import retrofit2.Call
 
 interface JokeApiDataSource {
-    suspend fun getApiJoke() : Call<JokeModel>
+    suspend fun getJoke() : JokeModel
 }
