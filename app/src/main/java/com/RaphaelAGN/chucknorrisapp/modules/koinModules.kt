@@ -1,7 +1,9 @@
 package com.RaphaelAGN.chucknorrisapp.modules
 
+import com.RaphaelAGN.chucknorrisapp.data.JokeApiDataSource
 import com.RaphaelAGN.chucknorrisapp.data.JokeApiDataSourceImpl
 import com.RaphaelAGN.chucknorrisapp.endpoint.JokeService
+import com.RaphaelAGN.chucknorrisapp.repository.ChuckNorrisJokeRepository
 import com.RaphaelAGN.chucknorrisapp.repository.ChuckNorrisJokeRepositoryImpl
 import com.RaphaelAGN.chucknorrisapp.viewModels.JokeViewModel
 import org.koin.dsl.module
@@ -25,10 +27,10 @@ val retrofitJokeService = module {
 
 val repositoryModule =
         module {
-            single { ChuckNorrisJokeRepositoryImpl(get()) }
+            single<ChuckNorrisJokeRepository> { ChuckNorrisJokeRepositoryImpl(get()) }
         }
 
 val dataSourceModule =
         module {
-            single { JokeApiDataSourceImpl(get()) }
+            single<JokeApiDataSource> { JokeApiDataSourceImpl(get()) }
         }
