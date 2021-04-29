@@ -1,8 +1,7 @@
 package com.RaphaelAGN.chucknorrisapp.data
 
-import com.RaphaelAGN.chucknorrisapp.models.JokeModel
-import retrofit2.Call
+import com.RaphaelAGN.chucknorrisapp.domain.models.Joke
 
 interface JokeApiDataSource {
-    suspend fun getJoke() : JokeModel
+    suspend fun getJoke() : Joke
 }
