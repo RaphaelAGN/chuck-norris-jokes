@@ -11,7 +11,7 @@ import org.koin.dsl.module
 
 val jokeViewModelModule =
     module {
-        single { JokeViewModel() }
+        single { JokeViewModel(get()) }
     }
 
 val retrofitJokeService = module {
