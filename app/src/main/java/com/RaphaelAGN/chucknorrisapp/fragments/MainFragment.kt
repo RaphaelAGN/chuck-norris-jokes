@@ -1,6 +1,5 @@
 package com.RaphaelAGN.chucknorrisapp.fragments
 
-import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -54,40 +53,5 @@ class MainFragment : Fragment(R.layout.fragment_main) {
         })
 
         return root
-    }
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        Log.i(TAG, "onCreateFragment")
-    }
-
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-        Log.i(TAG, "onAttachFragment")
-    }
-
-    override fun onStart() {
-        super.onStart()
-        Log.i(TAG, "onStartFragment")
-    }
-
-    override fun onResume() {
-        super.onResume()
-        Log.i(TAG, "onResumeFragment")
-    }
-
-    override fun onPause() {
-        super.onPause()
-        Log.i(TAG, "onPauseFragment")
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        Log.i(TAG, "onDestroyFragment")
-    }
-
-    override fun onStop() {
-        super.onStop()
-        Log.i(TAG, "onStopFragment")
     }
 }
