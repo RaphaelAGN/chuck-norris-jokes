@@ -2,14 +2,10 @@ package com.RaphaelAGN.chucknorrisapp.viewModels
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.RaphaelAGN.chucknorrisapp.repository.ChuckNorrisJokeRepository
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
+import com.RaphaelAGN.chucknorrisapp.domain.interactors.GetJokeUseCase
 
 class JokeViewModel(
-        val chuckNorrisJokeRepository : ChuckNorrisJokeRepository
+        private val jokeUseCase: GetJokeUseCase
 ) : ViewModel() {
 
     val currentJoke: MutableLiveData<String> by lazy {
@@ -21,14 +17,14 @@ class JokeViewModel(
     }
 
     fun getRandomJoke() {
-
-        CoroutineScope(Dispatchers.IO).launch {
-
-            val joke = chuckNorrisJokeRepository.getApiJoke()
-            withContext(Dispatchers.Main){
-                currentJoke.value = joke.value
+        jokeUseCase(
+            onSuccess = {
+                currentJoke.value = it.value
+            },
+            onError = {
+                error.value = it.message
             }
-        }
+        )
     }
 }
 
