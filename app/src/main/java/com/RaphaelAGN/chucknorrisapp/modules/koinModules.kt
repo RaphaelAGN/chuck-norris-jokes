@@ -2,6 +2,7 @@ package com.RaphaelAGN.chucknorrisapp.modules
 
 import com.RaphaelAGN.chucknorrisapp.data.JokeApiDataSource
 import com.RaphaelAGN.chucknorrisapp.data.JokeApiDataSourceImpl
+import com.RaphaelAGN.chucknorrisapp.domain.interactors.GetJokeUseCase
 import com.RaphaelAGN.chucknorrisapp.repository.ChuckNorrisJokeRepository
 import com.RaphaelAGN.chucknorrisapp.repository.ChuckNorrisJokeRepositoryImpl
 import com.RaphaelAGN.chucknorrisapp.retrofitClient.RetrofitClient
@@ -27,4 +28,13 @@ val repositoryModule =
 val dataSourceModule =
         module {
             factory<JokeApiDataSource> { JokeApiDataSourceImpl(get()) }
+        }
+
+val jokeUseCaseModule =
+        module {
+            factory {
+                GetJokeUseCase(
+                    chuckNorrisJokeRepository = get()
+                )
+            }
         }

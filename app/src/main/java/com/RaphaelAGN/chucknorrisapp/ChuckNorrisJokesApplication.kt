@@ -1,10 +1,7 @@
 package com.RaphaelAGN.chucknorrisapp
 
 import android.app.Application
-import com.RaphaelAGN.chucknorrisapp.modules.dataSourceModule
-import com.RaphaelAGN.chucknorrisapp.modules.jokeViewModelModule
-import com.RaphaelAGN.chucknorrisapp.modules.repositoryModule
-import com.RaphaelAGN.chucknorrisapp.modules.retrofitJokeService
+import com.RaphaelAGN.chucknorrisapp.modules.*
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
 import org.koin.core.context.startKoin
@@ -21,6 +18,7 @@ class ChuckNorrisJokesApplication : Application() {
                     retrofitJokeService,
                     dataSourceModule,
                     repositoryModule,
+                    jokeUseCaseModule,
                     jokeViewModelModule
                 )
             )
