@@ -16,18 +16,18 @@ class JokeApiDataSourceImplTest {
     val jokeService : JokeService = mockk()
 
     @Test
-    fun `GIVEN jokeApiDataSource WHEN getJoke called the return of getJoke is a jokeMapper value`() {
+    fun `GIVEN jokeApiDataSource WHEN getJoke called the return of getJoke is a joke value`() {
         runBlocking {
             //GIVEN
             val dataSource = JokeApiDataSourceImpl(jokeService)
-            coEvery { jokeService.getJoke() } returns JokeModel("", "", "", "")
+            val joke = Joke("joke")
+            coEvery { jokeService.getJoke() } returns JokeModel("", "", "", "joke")
 
             //WHEN
-            val jokeMapper = JokeMapper.toDomain(jokeService.getJoke())
             val result = dataSource.getJoke()
 
             //THEN
-            result.value shouldBe jokeMapper.value
+            result.value shouldBe joke.value
         }
     }
 
