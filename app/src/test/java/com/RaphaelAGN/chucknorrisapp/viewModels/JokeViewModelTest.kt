@@ -2,18 +2,13 @@ package com.RaphaelAGN.chucknorrisapp.viewModels
 
 import com.RaphaelAGN.chucknorrisapp.domain.interactors.GetJokeUseCase
 import com.RaphaelAGN.chucknorrisapp.domain.models.Joke
-import io.kotest.matchers.ints.exactly
-import io.mockk.coEvery
-import io.mockk.every
-import io.mockk.mockk
-import io.mockk.verify
-import org.junit.Assert.*
+import io.kotest.matchers.shouldBe
+import io.mockk.*
 import org.junit.Test
+import org.mockito.ArgumentMatchers.any
 
 class JokeViewModelTest {
     val jokeUseCase : GetJokeUseCase = mockk(relaxed = true)
-    val onSuccess : (joke : Joke) -> Unit = mockk()
-    val onError : (throwable : Throwable) -> Unit = mockk()
 
     @Test
     fun `GIVEN jokeViewModel WHEN getRandomJoke called THEN jokeUseCase called`() {
@@ -28,14 +23,40 @@ class JokeViewModelTest {
     }
 
     @Test
-    fun `asas`() {
-        //GIVEN
+    fun `testing `() {
+        // GIVEN
         val jokeViewModel = JokeViewModel(jokeUseCase)
-
-        //WHEN
+        val joke = Joke("joke")
+        every {
+            jokeUseCase.invoke(
+                onSuccess = captureLambda(),
+                onError = any()
+            )
+        } answers { lambda<(Joke) -> Unit>().invoke(joke) }
+        // WHEN
         jokeViewModel.getRandomJoke()
+        // THEN
+        jokeViewModel.currentJoke.value shouldBe joke.value
+    }
 
-        //THEN
-        verify {  }
+
+
+
+
+    @Test
+    fun `testing error`() {
+        // GIVEN
+        val jokeViewModel = JokeViewModel(jokeUseCase)
+        val messageError = Throwable("erro")
+        every {
+            jokeUseCase.invoke(
+                onSuccess = any(),
+                onError = captureLambda()
+            )
+        } answers { lambda<(Throwable) -> Unit>().invoke(messageError) }
+        // WHEN
+        jokeViewModel.getRandomJoke()
+        // THEN
+        jokeViewModel.error.value shouldBe messageError.message
     }
 }

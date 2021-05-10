@@ -1,5 +1,7 @@
 package com.RaphaelAGN.chucknorrisapp.domain.interactors
 
+import com.RaphaelAGN.chucknorrisapp.TestCoroutineContextProvider
+import com.RaphaelAGN.chucknorrisapp.core.CoroutineContextProvider
 import com.RaphaelAGN.chucknorrisapp.domain.models.Joke
 import com.RaphaelAGN.chucknorrisapp.repository.ChuckNorrisJokeRepository
 import io.kotest.matchers.ints.exactly
@@ -10,7 +12,8 @@ import java.lang.Exception
 import java.net.UnknownHostException
 
 class GetJokeUseCaseTest {
-    val chuckNorrisJokeRepository : ChuckNorrisJokeRepository = mockk(relaxed = true)
+    val chuckNorrisJokeRepository: ChuckNorrisJokeRepository = mockk(relaxed = true)
+    val coroutineContextProvider = TestCoroutineContextProvider()
     val onSuccess : (joke : Joke) -> Unit = mockk(relaxed = true)
     val onError : (throwable : Throwable) -> Unit = mockk(relaxed = true)
 
@@ -18,7 +21,7 @@ class GetJokeUseCaseTest {
     fun `GIVEN jokeUseCase WHEN jokeUseCase is called THEN with success, repository and onSuccess are called`() {
         runBlocking {
             //GIVEN
-            val jokeUseCase = GetJokeUseCase(chuckNorrisJokeRepository)
+            val jokeUseCase = GetJokeUseCase(chuckNorrisJokeRepository, coroutineContextProvider)
             val joke = Joke("joke")
             coEvery { chuckNorrisJokeRepository.getApiJoke() } returns joke
 
@@ -34,7 +37,7 @@ class GetJokeUseCaseTest {
     @Test
     fun `GIVEN jokeUseCase WHEN an UnknownHostException occurs THEN this exception MUST be thrown`(){
         //GIVEN
-        val jokeUseCase = GetJokeUseCase(chuckNorrisJokeRepository)
+        val jokeUseCase = GetJokeUseCase(chuckNorrisJokeRepository, coroutineContextProvider)
         coEvery { chuckNorrisJokeRepository.getApiJoke() } throws UnknownHostException()
 
         //WHEN
@@ -47,7 +50,7 @@ class GetJokeUseCaseTest {
     @Test
     fun `GIVEN jokeUseCase WHEN an error occurs THEN an exception MUST be thrown`(){
         //GIVEN
-        val jokeUseCase = GetJokeUseCase(chuckNorrisJokeRepository)
+        val jokeUseCase = GetJokeUseCase(chuckNorrisJokeRepository, coroutineContextProvider)
         coEvery { chuckNorrisJokeRepository.getApiJoke() } throws Exception()
 
         //WHEN
