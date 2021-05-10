@@ -15,23 +15,25 @@ class GetJokeUseCase(
     operator fun invoke(
         onSuccess: (joke : Joke) -> Unit = {},
         onError: (throwable : Throwable) -> Unit = {}
-    ) = runBlocking(coroutineContextProvider.io) {
-        try {
-            val joke = chuckNorrisJokeRepository.getApiJoke()
-            withContext(coroutineContextProvider.main){
-                onSuccess(joke)
-            }
-        } catch(e: Exception) {
-            val errorMessage = when(e) {
-                is UnknownHostException -> {
-                    "Não encontrado"
+    ) {
+        runBlocking(coroutineContextProvider.io) {
+            try {
+                val joke = chuckNorrisJokeRepository.getApiJoke()
+                withContext(coroutineContextProvider.main) {
+                    onSuccess(joke)
                 }
-                else -> {
-                    "Erro genérico"
+            } catch (e: Exception) {
+                val errorMessage = when (e) {
+                    is UnknownHostException -> {
+                        "Não encontrado"
+                    }
+                    else -> {
+                        "Erro genérico"
+                    }
                 }
-            }
-            withContext(coroutineContextProvider.main) {
-                onError(Throwable(errorMessage))
+                withContext(coroutineContextProvider.main) {
+                    onError(Throwable(errorMessage))
+                }
             }
         }
     }

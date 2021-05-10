@@ -79,7 +79,5 @@ dependencies {
         testImplementation "androidx.arch.core:core-common:$arch_version"
         testImplementation "androidx.arch.core:core-runtime:$arch_version"
         testImplementation "androidx.arch.core:core-testing:$arch_version"
-
-        implementation "androidx.annotation:annotation:1.2.0"
     }
 }
