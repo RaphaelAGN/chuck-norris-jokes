@@ -1,5 +1,6 @@
 package com.RaphaelAGN.chucknorrisapp.modules
 
+import com.RaphaelAGN.chucknorrisapp.core.CoroutineContextProvider
 import com.RaphaelAGN.chucknorrisapp.data.JokeApiDataSource
 import com.RaphaelAGN.chucknorrisapp.data.JokeApiDataSourceImpl
 import com.RaphaelAGN.chucknorrisapp.domain.interactors.GetJokeUseCase
@@ -34,7 +35,13 @@ val jokeUseCaseModule =
         module {
             factory {
                 GetJokeUseCase(
-                    chuckNorrisJokeRepository = get()
+                    chuckNorrisJokeRepository = get(),
+                    coroutineContextProvider = get()
                 )
             }
         }
+
+val coroutineContextProvider =
+    module {
+        single { CoroutineContextProvider() }
+    }

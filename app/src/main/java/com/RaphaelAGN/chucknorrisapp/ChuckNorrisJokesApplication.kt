@@ -19,7 +19,8 @@ class ChuckNorrisJokesApplication : Application() {
                     dataSourceModule,
                     repositoryModule,
                     jokeUseCaseModule,
-                    jokeViewModelModule
+                    jokeViewModelModule,
+                    coroutineContextProvider
                 )
             )
         }
