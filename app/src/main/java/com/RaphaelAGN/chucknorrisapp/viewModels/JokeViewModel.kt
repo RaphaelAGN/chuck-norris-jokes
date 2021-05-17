@@ -2,6 +2,7 @@ package com.RaphaelAGN.chucknorrisapp.viewModels
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.RaphaelAGN.chucknorrisapp.domain.interactors.GetJokeUseCase
 
 class JokeViewModel(
@@ -18,6 +19,7 @@ class JokeViewModel(
 
     fun getRandomJoke() {
         jokeUseCase(
+            scope = viewModelScope,
             onSuccess = {
                 currentJoke.value = it.value
             },
@@ -25,6 +27,7 @@ class JokeViewModel(
                 error.value = it.message
             }
         )
+
     }
 }
 
