@@ -5,7 +5,7 @@ import com.google.gson.annotations.SerializedName
 //Model with api response keys
 data class JokeModel(
     @SerializedName("categories")
-    var category: ArrayList<String>,
+    var category: List<String>,
 
     @SerializedName("created_at")
     var createdAt: String,

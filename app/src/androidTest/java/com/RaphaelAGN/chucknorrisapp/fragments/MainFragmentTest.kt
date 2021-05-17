@@ -12,7 +12,9 @@ import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.espresso.matcher.ViewMatchers.*
 import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.idling.CountingIdlingResource
+import com.RaphaelAGN.chucknorrisapp.InstrumentedTestCoroutineContextProvider
 import com.RaphaelAGN.chucknorrisapp.R
+import com.RaphaelAGN.chucknorrisapp.core.CoroutineContextProvider
 import com.RaphaelAGN.chucknorrisapp.domain.models.Joke
 import com.RaphaelAGN.chucknorrisapp.repository.ChuckNorrisJokeRepository
 import com.RaphaelAGN.chucknorrisapp.repository.ChuckNorrisJokeRepositoryImpl
@@ -33,6 +35,7 @@ class MainFragmentTest {
     var idlingResource: CountingIdlingResource? = null
 
     fun getModule() = module(override = true) {
+        single<CoroutineContextProvider> { InstrumentedTestCoroutineContextProvider() }
         factory<ChuckNorrisJokeRepository> { jokeRepository }
     }
 
@@ -57,7 +60,7 @@ class MainFragmentTest {
     @Before
     fun setup() {
         loadKoinModules(getModule())
-        coEvery { jokeRepository.getApiJoke() } returns Joke("joke")
+        coEvery { jokeRepository.getApiJoke() } returns Joke("Joke")
     }
 
     @After
