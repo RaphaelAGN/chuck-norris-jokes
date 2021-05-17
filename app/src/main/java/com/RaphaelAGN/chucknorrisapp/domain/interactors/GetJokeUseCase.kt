@@ -14,9 +14,10 @@ class GetJokeUseCase(
 
     operator fun invoke(
         onSuccess: (joke : Joke) -> Unit = {},
-        onError: (throwable : Throwable) -> Unit = {}
+        onError: (throwable : Throwable) -> Unit = {},
+        scope: CoroutineScope
     ) {
-        runBlocking(coroutineContextProvider.io) {
+        scope.launch(coroutineContextProvider.io) {
             try {
                 val joke = chuckNorrisJokeRepository.getApiJoke()
                 withContext(coroutineContextProvider.main) {

@@ -6,12 +6,13 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.test.espresso.idling.CountingIdlingResource
 import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
 import androidx.lifecycle.Observer
+import com.RaphaelAGN.chucknorrisapp.BuildConfig
 import com.RaphaelAGN.chucknorrisapp.R
-
 import com.RaphaelAGN.chucknorrisapp.viewModels.JokeViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -24,6 +25,9 @@ class MainFragment : Fragment(R.layout.fragment_main) {
 
     val buttonText = "New Joke"
     val defaultTextOnTextView = "Click the button below to show a joke"
+
+    private val idlingResource = CountingIdlingResource("MainFragment")
+    fun getIdlingResource(): CountingIdlingResource? = idlingResource
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -42,10 +46,12 @@ class MainFragment : Fragment(R.layout.fragment_main) {
 
         jokeButton?.setOnClickListener(){
             model.getRandomJoke()
+            idlingResource.increment()
         }
 
         model.currentJoke.observe(viewLifecycleOwner, Observer{
             jokeTextView?.text = it
+            idlingResource.decrement()
         })
 
         model.error.observe(viewLifecycleOwner, Observer{

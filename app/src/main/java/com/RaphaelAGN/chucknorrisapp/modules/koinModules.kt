@@ -1,5 +1,6 @@
 package com.RaphaelAGN.chucknorrisapp.modules
 
+import androidx.lifecycle.ViewModel
 import com.RaphaelAGN.chucknorrisapp.core.CoroutineContextProvider
 import com.RaphaelAGN.chucknorrisapp.data.JokeApiDataSource
 import com.RaphaelAGN.chucknorrisapp.data.JokeApiDataSourceImpl
@@ -8,11 +9,13 @@ import com.RaphaelAGN.chucknorrisapp.repository.ChuckNorrisJokeRepository
 import com.RaphaelAGN.chucknorrisapp.repository.ChuckNorrisJokeRepositoryImpl
 import com.RaphaelAGN.chucknorrisapp.retrofitClient.RetrofitClient
 import com.RaphaelAGN.chucknorrisapp.viewModels.JokeViewModel
+import org.koin.android.ext.koin.androidApplication
+import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 
 val jokeViewModelModule =
     module {
-        single { JokeViewModel(get()) }
+        viewModel { JokeViewModel(androidApplication(), get()) }
     }
 
 val retrofitJokeService = module {
