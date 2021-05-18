@@ -25,7 +25,7 @@ class JokeViewModelTest {
     }
 
     @Test
-    fun `testing `() {
+    fun `GIVEN jokeViewModel WHEN getRandomJoke is called THEN with success, current joke value should be a joke value`() {
         // GIVEN
         val jokeViewModel = JokeViewModel(application, jokeUseCase)
         val joke = Joke("joke")
@@ -36,18 +36,16 @@ class JokeViewModelTest {
                 onError = any()
             )
         } answers { lambda<(Joke) -> Unit>().invoke(joke) }
+
         // WHEN
         jokeViewModel.getRandomJoke()
+
         // THEN
         jokeViewModel.currentJoke.value shouldBe joke.value
     }
 
-
-
-
-
     @Test
-    fun `testing error`() {
+    fun `GIVEN jokeViewModel WHEN getRandomJoke is called THEN with error, the error value should be an messageError`() {
         // GIVEN
         val jokeViewModel = JokeViewModel(application, jokeUseCase)
         val messageError = Throwable("erro")

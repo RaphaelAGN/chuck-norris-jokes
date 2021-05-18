@@ -11,7 +11,6 @@ import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
 import androidx.lifecycle.Observer
-import com.RaphaelAGN.chucknorrisapp.BuildConfig
 import com.RaphaelAGN.chucknorrisapp.R
 import com.RaphaelAGN.chucknorrisapp.viewModels.JokeViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -49,12 +48,12 @@ class MainFragment : Fragment(R.layout.fragment_main) {
             idlingResource.increment()
         }
 
-        model.currentJoke.observe(viewLifecycleOwner, Observer{
+        model.currentJoke.observe(viewLifecycleOwner, {
             jokeTextView?.text = it
-            idlingResource.decrement()
+            if (!idlingResource.isIdleNow) idlingResource.decrement()
         })
 
-        model.error.observe(viewLifecycleOwner, Observer{
+        model.error.observe(viewLifecycleOwner, {
             Toast.makeText(context,  it, Toast.LENGTH_LONG).show()
         })
 

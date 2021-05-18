@@ -28,7 +28,7 @@ class GetJokeUseCaseTest {
             coEvery { chuckNorrisJokeRepository.getApiJoke() } returns joke
 
             //WHEN
-            jokeUseCase(onSuccess = onSuccess, scope = scope)
+            jokeUseCase(onSuccess = onSuccess, onError = onError, scope = scope)
 
             //THEN
             coVerify(exactly = 1) { chuckNorrisJokeRepository.getApiJoke() }
@@ -37,7 +37,7 @@ class GetJokeUseCaseTest {
     }
 
     @Test
-    fun `GIVEN jokeUseCase WHEN an UnknownHostException occurs THEN this exception MUST be thrown`(){
+    fun `GIVEN jokeUseCase WHEN an UnknownHostException occurs THEN onError MUST be called with this exception`(){
         //GIVEN
         val jokeUseCase = GetJokeUseCase(chuckNorrisJokeRepository, coroutineContextProvider)
         coEvery { chuckNorrisJokeRepository.getApiJoke() } throws UnknownHostException()
@@ -50,7 +50,7 @@ class GetJokeUseCaseTest {
     }
 
     @Test
-    fun `GIVEN jokeUseCase WHEN an error occurs THEN an exception MUST be thrown`(){
+    fun `GIVEN jokeUseCase WHEN an error occurs THEN onError MUST be called with any exception`(){
         //GIVEN
         val jokeUseCase = GetJokeUseCase(chuckNorrisJokeRepository, coroutineContextProvider)
         coEvery { chuckNorrisJokeRepository.getApiJoke() } throws Exception()
