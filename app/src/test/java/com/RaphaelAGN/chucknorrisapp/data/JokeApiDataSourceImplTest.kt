@@ -21,7 +21,7 @@ class JokeApiDataSourceImplTest {
             //GIVEN
             val dataSource = JokeApiDataSourceImpl(jokeService)
             val joke = Joke("joke")
-            coEvery { jokeService.getJoke() } returns JokeModel(listOf(),"", "", "", "joke", "", "")
+            coEvery { jokeService.getJoke() } returns JokeModel(listOf(),"", "", "", "", "", "joke")
 
             //WHEN
             val result = dataSource.getJoke()

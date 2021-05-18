@@ -1,6 +1,5 @@
 package com.RaphaelAGN.chucknorrisapp.modules
 
-import androidx.lifecycle.ViewModel
 import com.RaphaelAGN.chucknorrisapp.core.CoroutineContextProvider
 import com.RaphaelAGN.chucknorrisapp.data.JokeApiDataSource
 import com.RaphaelAGN.chucknorrisapp.data.JokeApiDataSourceImpl
